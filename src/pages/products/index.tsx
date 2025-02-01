@@ -34,11 +34,19 @@ const ProductListPage: React.FC = () => {
   const onFilter = () => {
     const productFilter = sortBy(products, [`${filter}`]);
 
-    if (sort === "desc") {
-      setProductList(productFilter.reverse());
+    if (filter === "name") {
+      setProductList(sort === "asc" ? productFilter : productFilter.reverse());
     } else {
-      setProductList(productFilter);
+      setProductList(sort === "asc" ? productFilter.reverse() : productFilter);
     }
+
+    // if (sort === "desc" && filter === "name") {
+    //   setProductList(productFilter.reverse());
+    // } else if (sort === "asc" && filter === "price") {
+    //   setProductList(productFilter.reverse());
+    // } else {
+    //   setProductList(productFilter);
+    // }
 
     setIsModalOpen(false);
   };
@@ -89,7 +97,7 @@ const ProductListPage: React.FC = () => {
       {productList.length === 0 ? (
         <EmptyContent />
       ) : (
-        <div className="grid grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {productList.map((product, key) => {
             return (
               <ProductCard
